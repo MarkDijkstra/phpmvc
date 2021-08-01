@@ -30,9 +30,10 @@ class Router
 
     public function __construct() 
     {
-        $routes = APPLICATION_PATH . "/App/Routes.php";
+        $routes = APPLICATION_PATH . "/routes/web.php";
+
         if (!is_file($routes)) {
-            throw new Exception("There is no route defined.");
+            throw new \Exception("There is no route defined.");
         }
 
         $this->routes = include $routes;
@@ -78,7 +79,7 @@ class Router
                 return $route;
             }
         }
-        return NULL;
+        return null;
     }
 
     /**
@@ -154,7 +155,7 @@ class Router
      *
      * @return array The array of the routes.
      */
-    public function getRoutes(): iterable 
+    public function getRoutes(): object
     {
         return $this->routes;
     }
@@ -185,5 +186,4 @@ class Router
         }
         Request::setParams($params);
     }
-
 }

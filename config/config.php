@@ -12,3 +12,7 @@ define('DB_CHAR', 'utf8mb4');
 # Global
 define('SHOW_ERRORS', true);
 define('DEFAULT_ROUTE', 'home');
+define('APPLICATION_PATH', substr(realpath(dirname(__FILE__)), 0, -6));
+
+# Env
+define('ENV', 'dev');

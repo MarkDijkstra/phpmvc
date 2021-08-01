@@ -1,0 +1,35 @@
+[01-Aug-2021 20:10:49 Europe/Berlin] PHP Fatal error:  Uncaught Exception: There is no route defined. in C:\xampp\htdocs\phpmvc\src\Router.php:36
+Stack trace:
+#0 C:\xampp\htdocs\phpmvc\public\index.php(24): Core\Router->__construct()
+#1 {main}
+  thrown in C:\xampp\htdocs\phpmvc\src\Router.php on line 36
+[01-Aug-2021 20:13:30 Europe/Berlin] PHP Fatal error:  Uncaught Exception: Controller class App\Controllers\main not found in C:\xampp\htdocs\phpmvc\src\Router.php:127
+Stack trace:
+#0 C:\xampp\htdocs\phpmvc\src\Router.php(150): Core\Router->runRoute()
+#1 C:\xampp\htdocs\phpmvc\public\index.php(25): Core\Router->dispatch()
+#2 {main}
+  thrown in C:\xampp\htdocs\phpmvc\src\Router.php on line 127
+[01-Aug-2021 20:15:14 Europe/Berlin] PHP Fatal error:  Uncaught Exception: Controller class App\Controllers\home not found in C:\xampp\htdocs\phpmvc\src\Router.php:127
+Stack trace:
+#0 C:\xampp\htdocs\phpmvc\src\Router.php(150): Core\Router->runRoute()
+#1 C:\xampp\htdocs\phpmvc\public\index.php(25): Core\Router->dispatch()
+#2 {main}
+  thrown in C:\xampp\htdocs\phpmvc\src\Router.php on line 127
+[01-Aug-2021 20:21:31 Europe/Berlin] PHP Fatal error:  Uncaught Exception: Controller class App\Controllers\home not found in C:\xampp\htdocs\phpmvc\src\Router.php:127
+Stack trace:
+#0 C:\xampp\htdocs\phpmvc\src\Router.php(150): Core\Router->runRoute()
+#1 C:\xampp\htdocs\phpmvc\public\index.php(25): Core\Router->dispatch()
+#2 {main}
+  thrown in C:\xampp\htdocs\phpmvc\src\Router.php on line 127
+[01-Aug-2021 20:21:33 Europe/Berlin] PHP Fatal error:  Uncaught Exception: Controller class App\Controllers\home not found in C:\xampp\htdocs\phpmvc\src\Router.php:127
+Stack trace:
+#0 C:\xampp\htdocs\phpmvc\src\Router.php(150): Core\Router->runRoute()
+#1 C:\xampp\htdocs\phpmvc\public\index.php(25): Core\Router->dispatch()
+#2 {main}
+  thrown in C:\xampp\htdocs\phpmvc\src\Router.php on line 127
+[01-Aug-2021 20:21:51 Europe/Berlin] PHP Fatal error:  Uncaught Exception: Controller class App\Controllers\homeController not found in C:\xampp\htdocs\phpmvc\src\Router.php:127
+Stack trace:
+#0 C:\xampp\htdocs\phpmvc\src\Router.php(150): Core\Router->runRoute()
+#1 C:\xampp\htdocs\phpmvc\public\index.php(25): Core\Router->dispatch()
+#2 {main}
+  thrown in C:\xampp\htdocs\phpmvc\src\Router.php on line 127

@@ -4,7 +4,6 @@ namespace Core;
 
 class View 
 {
-
     /**
      * The render method.
      *
@@ -12,7 +11,7 @@ class View
      * @param array $params A array of the controller variables.
      * @return void
      */
-    static function render(string $view, array $params): void 
+    static function render(string $view, array $params = []): void 
     {
         extract($params, EXTR_SKIP);
         $content = APPLICATION_PATH . "/app/Views/Pages/$view.php";
