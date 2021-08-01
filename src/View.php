@@ -15,7 +15,7 @@ class View
     static function render(string $view, array $params): void 
     {
         extract($params, EXTR_SKIP);
-        $content = APPLICATION_PATH . "/app/Views/Page/$view.php";
+        $content = APPLICATION_PATH . "/app/Views/Pages/$view.php";
 
         if (is_readable($content)) {
             require_once APPLICATION_PATH . "/app/Views/base.php";            
