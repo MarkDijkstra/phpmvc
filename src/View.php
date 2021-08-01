@@ -18,7 +18,7 @@ class View
         $content = APPLICATION_PATH . "/app/Views/Page/$view.php";
 
         if (is_readable($content)) {
-            require_once APPLICATION_PATH . "/app/Views/Base.php";            
+            require_once APPLICATION_PATH . "/app/Views/base.php";            
         } else {            
             throw new \Exception("View $view not found");
         }
@@ -33,7 +33,7 @@ class View
     static function renderError(array $params): void 
     {
         extract($params, EXTR_SKIP);
-        $content = APPLICATION_PATH . "/App/Views/Error.php"; 
+        $content = APPLICATION_PATH . "/App/Views/error.php"; 
 
         if (is_readable($content)) {            
             require_once $content;            
