@@ -1,0 +1,21 @@
+{
+    "name": "markd/phpmvc",
+    "description": "MVC template",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Mark Dijkstra",
+            "email": "private@example.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": { 
+            "App\\": "app/",
+            "Core\\": "src/"  
+        }
+    },
+    "require": {},
+    "scripts":{}
+}

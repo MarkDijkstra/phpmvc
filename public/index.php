@@ -10,11 +10,13 @@ if (ENV && ENV == 'dev') {
     ini_set("error_log", "./../logs/error-log.log");
 }
 
-require '../src/Psr4AutoloaderClass.php';
+require '../vendor/autoload.php';
 
-// PSR4 autoloader class.
-$loader = new Core\Psr4AutoloaderClass();
-$loader->register();
+// require '../src/Psr4AutoloaderClass.php';
+
+// // PSR4 autoloader class.
+// $loader = new Core\Psr4AutoloaderClass();
+// $loader->register();
 
 // Error and Exception handling.
 // set_error_handler('Core\Error::errorHandler');
