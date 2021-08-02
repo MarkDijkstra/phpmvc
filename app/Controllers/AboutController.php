@@ -5,7 +5,7 @@ namespace App\Controllers;
 use Core\Controller;
 use Core\View;
 
-class HomeController extends Controller 
+class AboutController extends Controller 
 {
     /**
      * The index controller action
@@ -14,6 +14,6 @@ class HomeController extends Controller
      */
     public function index(): void 
     {
-        View::render("home");
+        View::render("about");
     }
 }

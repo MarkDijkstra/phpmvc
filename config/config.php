@@ -1,6 +1,9 @@
 <?php
 
 // These values need to be moved to an .env file (todo)
+# Project
+define('PROJECT_DIR', 'phpmvc');
+
 
 # DB
 define('DB_HOST', 'localhost');

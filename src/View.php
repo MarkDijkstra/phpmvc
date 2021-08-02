@@ -14,10 +14,10 @@ class View
     static function render(string $view, array $params = []): void 
     {
         extract($params, EXTR_SKIP);
-        $content = APPLICATION_PATH . "/app/Views/Pages/$view.php";
+        $content = APPLICATION_PATH . "/app/Views/$view.php";
 
         if (is_readable($content)) {
-            require_once APPLICATION_PATH . "/app/Views/base.php";            
+            require_once APPLICATION_PATH . "/app/Views/layout/base.php";            
         } else {            
             throw new \Exception("View $view not found");
         }
@@ -32,7 +32,7 @@ class View
     static function renderError(array $params): void 
     {
         extract($params, EXTR_SKIP);
-        $content = APPLICATION_PATH . "/App/Views/error.php"; 
+        $content = APPLICATION_PATH . "/App/Views/layout/error.php"; 
 
         if (is_readable($content)) {            
             require_once $content;            

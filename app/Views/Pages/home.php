@@ -1,3 +1,0 @@
-<div>
-    Main container
-</div>

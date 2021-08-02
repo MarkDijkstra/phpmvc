@@ -42,12 +42,10 @@ class Router
     /**
      * The decode controller method.
      * 
-     * This method accepts a string and decodes it.
-     * 
      * For example: Home@index will be [ "controller" => "Home", "action" => "index" ]
      *
-     * @param string $route A string representation of route.     *
-     * @return array The route details.
+     * @param string $route A string representation of route
+     * @return array The route details
      */
     private function decodeControler(string $route): iterable 
     {
@@ -61,22 +59,22 @@ class Router
     /**
      * The check route method.
      * 
-     * The method checks whether the current route is valid 
-     * and if it is valid it will returns its details.
-     *
      * @param string $url The route URL
-     * @param string $method The request method (GET, POST ...).
-     * @return mixed  Route details or false if route is not found.
+     * @param string $method The request method (GET, POST ...)
+     * @return mixed Route details or false if route is not found
      */
     private function checkRoute(string $url, string $method): ?iterable 
-    {
-        foreach ($this->routes[$method] as $route_path => $route) {
-            if (strpos($url, $route_path) === 0) {
+    {       
+        foreach ($this->routes[$method] as $route_path => $route) {       
+            if ($route_path !== '/'){
+                $route_path = ltrim($route_path, '/');
+            }
+            if ($url === $route_path) {
                 $route = $this->decodeControler($route);
                 $namespace = 'App\Controllers\\';
                 $route['controller'] = $namespace . $route['controller'];
                 $this->routePath = $route_path;
-                return $route;
+                return $route; 
             }
         }
         return null;
@@ -135,14 +133,13 @@ class Router
      */
     public function dispatch(): void 
     {
-        $url = $_SERVER['PHP_SELF'];
+        $url = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
-        if ($url === "" || $url === "/") {
-            $url = DEFAULT_ROUTE;
-        }
-        $this->route = $this->checkRoute($url, $method);
 
-        if ($this->route === NULL) {
+        $url = $this->cleanUrl($url);        
+        $this->route = $this->checkRoute($url, $method);
+   
+        if ($this->route === null) {
             throw new \Exception('No route matched.', 404);
         }
 
@@ -151,9 +148,28 @@ class Router
     }
 
     /**
+     * Clean URL and remove project dir
+     *
+     * @param string $url The clean url.
+     * @return void
+     */
+    private function cleanUrl($url): string 
+    {
+        $url = ltrim($url, '/');
+        $url = substr($url, strpos($url, '/') + 1);
+
+        if ($url === "") {
+            $url = '/';
+        }
+
+        return $url;
+    }
+
+
+    /**
      * Routes
      *
-     * @return array The array of the routes.
+     * @return object The object of the routes.
      */
     public function getRoutes(): object
     {

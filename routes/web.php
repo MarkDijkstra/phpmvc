@@ -2,6 +2,8 @@
 
 return [
     "GET" => [
-        "/" => "homeController@index"
+        "/" => "HomeController@index",
+        "about" => "AboutController@index",
+        "product" => "ProductController@index"
     ]
 ];
