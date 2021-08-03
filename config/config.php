@@ -7,14 +7,14 @@ define('PROJECT_DIR', 'phpmvc');
 
 # DB
 define('DB_HOST', 'localhost');
-define('DB_USER', 'YOUR_USERNAME');
-define('DB_PASS', 'YOUR_PASS');
-define('DB_NAME', 'YOUR_DATABASE_NAME');
+define('DB_USER', 'root');
+define('DB_PASSWORD', '');
+define('DB_NAME', 'phpmvc');
 define('DB_CHAR', 'utf8mb4');
 
 # Global
 define('SHOW_ERRORS', true);
-define('DEFAULT_ROUTE', 'home');
+define('DEFAULT_ROUTE', '/');
 define('APPLICATION_PATH', substr(realpath(dirname(__FILE__)), 0, -6));
 
 # Env

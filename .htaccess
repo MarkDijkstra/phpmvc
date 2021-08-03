@@ -9,3 +9,5 @@ RewriteRule (.+) public/$1 [L]
 
 # Route all other requests
 RewriteRule (.*) public/index.php?path=$1 [L,QSA]
+
+#RewriteRule !\.(js|ico|gif|jpg|png|css|html|htm|xml|txt|dat|pdf|json|php|jar|zip|ttf|woff|woff2)$ index.php [NC,L] 

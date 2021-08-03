@@ -1,6 +1,7 @@
 <?php
 
 require '../config/config.php';
+require '../vendor/autoload.php';
 
 if (ENV && ENV == 'dev') {
     error_reporting(E_ALL);
@@ -10,17 +11,11 @@ if (ENV && ENV == 'dev') {
     ini_set("error_log", "./../logs/error-log.log");
 }
 
-require '../vendor/autoload.php';
-
-// require '../src/Psr4AutoloaderClass.php';
-
-// // PSR4 autoloader class.
-// $loader = new Core\Psr4AutoloaderClass();
-// $loader->register();
-
 // Error and Exception handling.
-// set_error_handler('Core\Error::errorHandler');
-// set_exception_handler('Core\Error::exceptionHandler');
+// This will redirect to an custom (error) page
+// we will skip this use a 404 container for this instead
+//set_error_handler('Core\Error::errorHandler');
+//set_exception_handler('Core\Error::exceptionHandler');
 
 // Route dispatch
 $router = new Core\Router();

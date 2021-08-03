@@ -16,6 +16,12 @@
            <li>
                <a href="about">About</a>
            </li>
+           <li>
+           <a href="product/a">Product A</a>
+           </li>
+           <li>
+               <a href="product/b">Product B</a>
+           </li>
        </ul>
     </nav>
     <div id="main">

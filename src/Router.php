@@ -65,19 +65,31 @@ class Router
      */
     private function checkRoute(string $url, string $method): ?iterable 
     {       
-        foreach ($this->routes[$method] as $route_path => $route) {       
-            if ($route_path !== '/'){
-                $route_path = ltrim($route_path, '/');
-            }
-            if ($url === $route_path) {
-                $route = $this->decodeControler($route);
-                $namespace = 'App\Controllers\\';
-                $route['controller'] = $namespace . $route['controller'];
-                $this->routePath = $route_path;
-                return $route; 
-            }
+        if (array_key_exists($url, $this->routes[$method])) {
+            $route = $this->routes[$method][$url];
+        } else {
+            $route = $this->routes[$method]['404'];
         }
-        return null;
+
+        $route = $this->decodeControler($route);
+        $namespace = 'App\Controllers\\';
+        $route['controller'] = $namespace . $route['controller'];
+        $this->routePath =$url;
+        return $route;   
+
+        // foreach ($this->routes[$method] as $route_path => $route) {       
+        //     // if ($route_path !== '/'){
+        //     //     $route_path = ltrim($route_path, '/');
+        //     // }
+        //     if ($url === $route_path) {
+        //         $route = $this->decodeControler($route);
+        //         $namespace = 'App\Controllers\\';
+        //         $route['controller'] = $namespace . $route['controller'];
+        //         $this->routePath = $route_path;
+        //         return $route;        
+        //     }
+        // }
+        //return null;
     }
 
     /**
@@ -135,10 +147,9 @@ class Router
     {
         $url = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
-
-        $url = $this->cleanUrl($url);        
+        $url = $this->cleanUrl($url); 
         $this->route = $this->checkRoute($url, $method);
-   
+
         if ($this->route === null) {
             throw new \Exception('No route matched.', 404);
         }
@@ -159,7 +170,7 @@ class Router
         $url = substr($url, strpos($url, '/') + 1);
 
         if ($url === "") {
-            $url = '/';
+            $url = DEFAULT_ROUTE;
         }
 
         return $url;
