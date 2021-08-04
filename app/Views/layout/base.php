@@ -17,10 +17,13 @@
                <a href="about">About</a>
            </li>
            <li>
-           <a href="product/a">Product A</a>
+                <a href="products">Products</a>
            </li>
            <li>
-               <a href="product/b">Product B</a>
+                <a href="products/a">Cars</a>
+           </li>
+           <li>
+               <a href="products/b">Bikes</a>
            </li>
        </ul>
     </nav>
