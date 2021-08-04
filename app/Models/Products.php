@@ -24,12 +24,12 @@ class Products extends Model
      * Method getting all records from database.
      * [Implemented method from the Model class]
      *
-     * @return array
+     * @return iterable
      */
-    public function getAll(): iterable 
-    {
-        return $this->db->query('SELECT * FROM '.$this->table)->fetchAll(\PDO::FETCH_ASSOC);
-    }
+    // public function getAll(): iterable 
+    // {
+    //     return $this->db->query('SELECT * FROM '.$this->table)->fetchAll(\PDO::FETCH_ASSOC);
+    // }
 
     /**
      * Method getting last 10 records from database.

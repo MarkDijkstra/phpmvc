@@ -17,10 +17,12 @@ class ProductController extends Controller
         $products = new \App\Models\Products;
         $results = null;
 
+       // $id =2;
+
         if ($id) {
-            $results=[];
+            //$results= $products->db->findOne($id);
         } else {
-            $results = $products->getAll();
+            $results = $products->all();
         }
 
         View::render("products", ['products'=>$results]);
