@@ -28,7 +28,7 @@ class Products extends Model
      */
     public function getAll(): iterable 
     {
-        return $this->DB()->query('SELECT * FROM '.$this->table)->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->db->query('SELECT * FROM '.$this->table)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -38,7 +38,7 @@ class Products extends Model
      */
     public function getLastTen(): iterable {
 
-        return $this->DB()->query('SELECT o.*, c.first_name, c.last_name, '
+        return $this->db->query('SELECT o.*, c.first_name, c.last_name, '
                                 . 'cn.name as country_name, d.name as device_name '
                                 . 'FROM orders as o '
                                 . 'LEFT JOIN customers as c ON (o.customer_id = c.id) '

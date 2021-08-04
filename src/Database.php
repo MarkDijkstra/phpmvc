@@ -11,7 +11,7 @@ class Database
      *
      * @var object
      */
-    static $db = null;
+    protected $connect = null;
 
     /**
      * The name of the table in the database that the model binds
@@ -21,19 +21,26 @@ class Database
     private $_table;
 
     /**
-     * The model construct
+     * It represents a PDO instance
+     *
+     * @var object
+     */
+    public $db = null;
+
+    /**
+     * The database construct
      */
     public function __construct($table_name) 
     {
-        if (static::$db === null) {            
+        if ($this->connect === null) {            
             $conn_string = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8';
-            $db = new \PDO($conn_string, DB_USER, DB_PASSWORD);
+            $this->connect = new \PDO($conn_string, DB_USER, DB_PASSWORD);
 
-            $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            static::$db = $db;
+            $this->connect->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         }
         
         $this->_table = $table_name;
+        $this->db = $this->connect;
     }
 
     /**
@@ -41,8 +48,8 @@ class Database
      *
      * @return object
      */
-    protected function DB(): PDO 
-    {
-        return static::$db;
-    }
+    // protected function DB(): PDO 
+    // {
+    //     return static::$db;
+    // }
 }
