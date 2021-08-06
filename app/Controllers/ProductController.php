@@ -2,8 +2,7 @@
 
 namespace App\Controllers;
 
-use Core\Controller;
-use Core\View;
+use Core\{Controller, View, Query};
 
 class ProductController extends Controller 
 {
@@ -14,15 +13,15 @@ class ProductController extends Controller
      */
     public function index(int $id = null): void 
     {
-        $products = new \App\Models\Products;
+        $products = new Query;
         $results = null;
 
        // $id =2;
 
         if ($id) {
-            //$results= $products->db->findOne($id);
+           // $results= $products->db->findOne($id);
         } else {
-            $results = $products->all();
+            $results = $products->select()->from('products')->all();
         }
 
         View::render("products", ['products'=>$results]);

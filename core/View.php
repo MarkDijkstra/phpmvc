@@ -11,7 +11,7 @@ class View
      * @param array $params A array of the controller variables.
      * @return void
      */
-    static function render(string $view, array $params = []): void 
+    static function render(string $view, array $params = []) : void 
     {
         extract($params, EXTR_SKIP);
         $content = APPLICATION_PATH . "/app/Views/$view.php";
@@ -29,7 +29,7 @@ class View
      * @param array $params A array of the controller variables.
      * @return array  The route details.
      */
-    static function renderError(array $params): void 
+    static function renderError(array $params) : void 
     {
         extract($params, EXTR_SKIP);
         $content = APPLICATION_PATH . "/App/Views/layout/error.php"; 

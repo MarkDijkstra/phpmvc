@@ -5,16 +5,16 @@ use Exception;
 
 class Error 
 {
-
     /**
      * The error handler method.
+     * 
      * @param int $level  Error level
      * @param string $message  Error message
      * @param string $file  Filename the error was raised in
      * @param int $line  Line number in the file
      * @return void
      */
-    public static function errorHandler(int $level, string $message, string $file, int $line): void 
+    public static function errorHandler(int $level, string $message, string $file, int $line) : void 
     {
         if (error_reporting() !== 0) {
             throw new \ErrorException($message, 0, $level, $file, $line);
@@ -27,7 +27,7 @@ class Error
      * @param Exception $exception The exception
      * @return void
      */
-    public static function exceptionHandler($exception): void 
+    public static function exceptionHandler($exception) : void 
     {
         $errorinfo = "";
         $header = "404";
@@ -52,10 +52,10 @@ class Error
     /**
      * The method that write error info to log file.
      *
-     * @param Exception $exception  The exception
+     * @param Exception $exception The exception
      * @return void
      */
-    public static function logToFile(Exception $exception): void 
+    public static function logToFile(Exception $exception) : void 
     {
         ini_set('error_log', APPLICATION_PATH . '/logs/' . date('Y-m-d') . '.txt');
 
@@ -73,7 +73,7 @@ class Error
      * @param Exception $exception  The exception
      * @return string
      */
-    public static function getErrorInfo($exception): string 
+    public static function getErrorInfo($exception) : string 
     {
         $errorinfo = "";
         $errorinfo .= "<h1>Fatal error</h1>";

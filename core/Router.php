@@ -47,7 +47,7 @@ class Router
      * @param string $route A string representation of route
      * @return array The route details
      */
-    private function decodeControler(string $route): iterable 
+    private function decodeControler(string $route) : iterable 
     {
         $controller = explode("@", $route);
         return [
@@ -63,7 +63,7 @@ class Router
      * @param string $method The request method (GET, POST ...)
      * @return mixed Route details or false if route is not found
      */
-    private function checkRoute(string $url, string $method): ?iterable 
+    private function checkRoute(string $url, string $method) : iterable 
     {       
         if (array_key_exists($url, $this->routes[$method])) {
             $route = $this->routes[$method][$url];
@@ -98,7 +98,7 @@ class Router
      * @param object $controller_object The controller object
      * @return void
      */
-    private function methodCallable(Controller $controller_object): void 
+    private function methodCallable(Controller $controller_object) : void 
     {
         if (is_callable(array($controller_object, $this->route['action']))) {
             $action = $this->route['action'];
@@ -114,7 +114,7 @@ class Router
      * @param object $controller_object The controller object
      * @return void
      */
-    private function methodExists(Controller $controller_object): void 
+    private function methodExists(Controller $controller_object) : void 
     {
         if (method_exists($controller_object, $this->route['action'])) {
             $this->methodCallable($controller_object);
@@ -128,7 +128,7 @@ class Router
      *
      * @return void
      */
-    private function runRoute(): void 
+    private function runRoute() : void 
     {
         if (class_exists($this->route['controller'])) {
             $controller_object = new $this->route['controller']();
@@ -143,7 +143,7 @@ class Router
      * 
      * @return void
      */
-    public function dispatch(): void 
+    public function dispatch() : void 
     {
         $url = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
@@ -164,7 +164,7 @@ class Router
      * @param string $url The clean url.
      * @return void
      */
-    private function cleanUrl($url): string 
+    private function cleanUrl($url) : string 
     {
         $url = ltrim($url, '/');
         $url = substr($url, strpos($url, '/') + 1);
@@ -176,13 +176,12 @@ class Router
         return $url;
     }
 
-
     /**
      * Routes
      *
      * @return object The object of the routes.
      */
-    public function getRoutes(): object
+    public function getRoutes() : object
     {
         return $this->routes;
     }
@@ -194,7 +193,7 @@ class Router
      *
      * @return void
      */
-    public function extractUrlParams(string $url): void 
+    public function extractUrlParams(string $url) : void 
     {
         $params_string = str_replace($this->routePath, "", $url);
         if (substr($params_string, 0, 1) === "/") {

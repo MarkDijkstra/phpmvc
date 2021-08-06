@@ -4,7 +4,7 @@ namespace Core;
 
 use PDO;
 
-class Database extends Query
+class Database
 {
 
     /**
@@ -17,7 +17,7 @@ class Database extends Query
     /**
      * The database construct
      */
-    public function __construct($table_name) 
+    public function __construct($table_name = null) 
     {
         if ($this->db === null) {            
             $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8';
@@ -32,7 +32,12 @@ class Database extends Query
             $this->db = new PDO($dsn, DB_USER, DB_PASSWORD, $options);
         }
 
-        parent::__construct($table_name);
+       // parent::__construct($table_name);
+    }
+
+    public function disconnect()
+    {
+        //todo
     }
 
     /**
@@ -40,7 +45,7 @@ class Database extends Query
      *
      * @return object
      */
-    // protected function DB(): PDO 
+    // protected static function DB() : PDO 
     // {
     //     return static::$db;
     // }
