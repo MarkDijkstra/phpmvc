@@ -32,6 +32,15 @@
 h1{
     margin-bottom:30px;
 }
+.table{
+    border-collapse: collapse;
+    min-width: 600px;
+}
+.table th,
+.table td {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+}
 #products{
     width: 400px;
     float: left;

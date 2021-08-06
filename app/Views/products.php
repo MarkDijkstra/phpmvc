@@ -5,16 +5,24 @@
     <p>
     Show a list of all products here...
     </p>
-    <div id="products">
+    <table class="table" id="products">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+            </tr>
+        </thead>
     <?php 
         foreach($products as $key => $value) {
-           echo '<div>';
-           echo '<p><strong>Id:</strong> '.$value['id'].'</p>';
-           echo '<p><strong>Name:</strong> '.$value['name'].'</p>';
-           echo '<p><strong>Category:</strong> '.$value['category'].'</p>';
-           echo '<p><strong>Price:</strong> '.$value['price'].'</p>';
-           echo '</div>';
+           echo '<tr>';
+           echo '<td>'.$value['id'].'</td>';
+           echo '<td>'.$value['name'].'</td>';
+           echo '<td>'.$value['category'].'</td>';
+           echo '<td>'.$value['price'].'</td>';
+           echo '</tr>';
         }
     ?>
-    </div>
+    </table>
 </div>
