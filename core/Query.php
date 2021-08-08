@@ -6,32 +6,57 @@ use PDO;
 
 class Query extends Database
 {
- 
+    /**
+    * @var string table name that is used.
+    */
     private $table;
+    /**
+    * @var object the PDO object
+    */
     private $stmt;
+
+
     private $from;
     private $columns;
+    private $limit;
+    private $where;
+    private array $whereKeys = [];
+    private $whereValues = [];
+    private $sql;
+    private $db;
 
     /**
      * The model construct
-     * 
-     * @param $table the name of the table
      */
     public function __construct() 
     {
-       parent::__construct();
+        parent::__construct();
+        $this->db = $this->pdo;
     }
         
     /**
-     * Method query
+     * Method queryBuilder
      *
      * @param $sql Query to run
      * @return object
      */
-    private function query($sql) : object
+    private function queryBuilder(): object
     {
-        $this->stmt = $this->db->prepare($sql);
-        $this->execute();
+
+        // $this->sql = 'SELECT';
+
+        // if ($this->limit) { 
+
+        // }
+
+        $this->sql = 'SELECT '.$this->columns.' FROM '.$this->table. ' LIMIT '.$this->limit;
+
+        if ($this->where) {
+            $this->stmt = $this->db->prepare($this->sql);
+            $this->execute();
+        } else {
+            $this->stmt = $this->db->query($this->sql);
+        }
         return $this;
     }
     
@@ -41,7 +66,7 @@ class Query extends Database
      * @param $columns The columns that are selected
      * @return object
      */
-    public function select($columns = '*') : object
+    public function select($columns = '*'): object
     {
         if ($columns) { 
             // todo: filtering and options
@@ -57,15 +82,16 @@ class Query extends Database
      * @param String $table Select the table to retrive the data from
      * @return object
      */
-    public function from(String $table) : object
+    public function from(String $table): object
     {
         $this->table = $table;
         return $this;
     }
 
-    public function where()
+    public function where($where = null)
     {
-        
+        $this->where = $where;
+        return $this;
     }
 
     /**
@@ -75,9 +101,9 @@ class Query extends Database
      */    
     public function all() : array
     {
-        $this->query('SELECT '.$this->columns.' FROM '.$this->table);
-        $this->stmt  = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        $this->queryBuilder();
+        $this->stmt = $this->stmt->fetchAll();
+        
         return $this->stmt;
     }
 
@@ -89,9 +115,25 @@ class Query extends Database
     public function one() : array
     {
         $this->execute();
-        $this->stmt = $this->stmt->fetch(PDO::FETCH_ASSOC);
+        $this->stmt = $this->stmt->fetch();
         
         return $this->stmt;
+    }
+    
+    public function orderBy()
+    {
+        
+    }
+
+    public function limit($limit)
+    {
+        $this->limit = $limit;
+        return $this;
+    }
+
+    public function count()
+    {
+        
     }
 
     public function find()
