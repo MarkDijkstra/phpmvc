@@ -14,7 +14,7 @@ class Error
      * @param int $line  Line number in the file
      * @return void
      */
-    public static function errorHandler(int $level, string $message, string $file, int $line) : void 
+    public static function errorHandler(int $level, string $message, string $file, int $line): void 
     {
         if (error_reporting() !== 0) {
             throw new \ErrorException($message, 0, $level, $file, $line);
@@ -27,13 +27,14 @@ class Error
      * @param Exception $exception The exception
      * @return void
      */
-    public static function exceptionHandler($exception) : void 
+    public static function exceptionHandler($exception): void 
     {
         $errorinfo = "";
         $header = "404";
         $homepage = DEFAULT_ROUTE;
 
         $code = $exception->getCode();
+
         if ($code != 404) {
             $code = 500;
         }
@@ -55,7 +56,7 @@ class Error
      * @param Exception $exception The exception
      * @return void
      */
-    public static function logToFile(Exception $exception) : void 
+    public static function logToFile(Exception $exception): void 
     {
         ini_set('error_log', APPLICATION_PATH . '/logs/' . date('Y-m-d') . '.txt');
 
@@ -73,7 +74,7 @@ class Error
      * @param Exception $exception  The exception
      * @return string
      */
-    public static function getErrorInfo($exception) : string 
+    public static function getErrorInfo($exception): string 
     {
         $errorinfo = "";
         $errorinfo .= "<h1>Fatal error</h1>";
@@ -81,6 +82,7 @@ class Error
         $errorinfo .= "<p class=\"text-danger\">Message: '" . $exception->getMessage() . "'</p>";
         $errorinfo .= "<p class=\"text-warning text-left\">Stack trace:<br /><span>" . nl2br($exception->getTraceAsString()) . "</span></p>";
         $errorinfo .= "<p>Thrown in '" . $exception->getFile() . "' on line " . $exception->getLine() . "</p>";
+        
         return $errorinfo;
     }
 }

@@ -19,7 +19,7 @@ class Request
      * @access  public
      * @since   Method available since Release 1.0.0
      */
-    public static function getParam(string $name, string $default = null) : ?string 
+    public static function getParam(string $name, string $default = null): ?string 
     {
         if (isset(self::$params[$name])) {
             return self::$params[$name];
@@ -33,7 +33,7 @@ class Request
      *
      * @return void
      */
-    public static function setParams(array $params) : void 
+    public static function setParams(array $params): void 
     {
         self::$params = $params;
     }
