@@ -11,19 +11,28 @@ class Query extends Database
     */
     private $table;
     /**
-    * @var object the PDO object
+    * @var object the PDO object.
     */
     private $stmt;
-
-
-    private $from;
+    /**
+    * @var mixed columns that are selected.
+    */
     private $columns;
+    /**
+    * @var int max results to output.
+    */
     private $limit;
-    private $where;
-    private array $whereKeys = [];
-    private $whereValues = [];
+
+
+
+   
+    private $whereKeys;
+    private $whereValues;
+    private $orderBy;
+
     private $sql;
     private $db;
+    private $distinct;
 
     /**
      * The model construct
@@ -42,37 +51,45 @@ class Query extends Database
      */
     private function queryBuilder(): object
     {
+        $this->sql = 'SELECT '.$this->columns.' FROM '.$this->table;
 
-        // $this->sql = 'SELECT';
+        if ($this->whereKeys && $this->whereValues) {
+           $this->sql .= ' WHERE '.$this->whereKeys.'=? ';
+        }
 
-        // if ($this->limit) { 
+        if ($this->orderBy) {
+            $this->sql .= ' ORDER BY '.$this->orderBy;
+        }
 
-        // }
+        if ($this->limit) {
+            $this->sql .= ' LIMIT '.$this->limit;
+        }
 
-        $this->sql = 'SELECT '.$this->columns.' FROM '.$this->table. ' LIMIT '.$this->limit;
-
-        if ($this->where) {
+        if ($this->whereKeys && $this->whereValues) {
             $this->stmt = $this->db->prepare($this->sql);
-            $this->execute();
+            $this->execute($this->whereValues);
         } else {
             $this->stmt = $this->db->query($this->sql);
         }
+        
         return $this;
     }
     
     /**
      * Method select
-     *
-     * @param $columns The columns that are selected
+     * 
+     * @todo add type hinting(union types) for PHP8 https://wiki.php.net/rfc/union_types_v2
+     * @param String|Array $columns The columns that are selected
      * @return object
      */
     public function select($columns = '*'): object
     {
-        if ($columns) { 
-            // todo: filtering and options
-        }
-        
         $this->columns = $columns;
+
+        if (is_array($this->columns)) { 
+            $this->columns = implode(',', $this->columns);
+        }
+
         return $this;
     }
     
@@ -82,15 +99,29 @@ class Query extends Database
      * @param String $table Select the table to retrive the data from
      * @return object
      */
-    public function from(String $table): object
+    public function from(string $table = null): object
     {
         $this->table = $table;
+
         return $this;
     }
 
-    public function where($where = null)
+    /**
+     * Method where
+     *
+     * @todo add logic to handle complex statements
+     * @param array $where the where statement
+     * @return object
+     */
+    public function where(array $where = []): object
     {
-        $this->where = $where;
+        foreach($where as $key => $value) {
+            $this->whereKeys[] = $key;
+            $this->whereValues[] = $value;
+        }
+
+        $this->whereKeys =implode(',', $this->whereKeys);
+
         return $this;
     }
 
@@ -114,21 +145,57 @@ class Query extends Database
      */  
     public function one() : array
     {
-        $this->execute();
+        $this->queryBuilder();
         $this->stmt = $this->stmt->fetch();
         
         return $this->stmt;
     }
-    
-    public function orderBy()
-    {
-        
-    }
 
-    public function limit($limit)
+
+
+    
+    public function orderBy(array $orderBy = [])
+    {
+        $combine = '';
+
+
+ 
+           // if (array() === $arr) return false;
+
+
+        if (array_keys($orderBy) !== range(0, count($orderBy) - 1)) {
+            foreach($orderBy as $key => $value) {
+              $combine .= $key . ' ' . strtoupper($value) . ',';
+            }
+        } else {
+            foreach($orderBy as $value) {             
+                $combine .= $value.',';
+             }
+        }
+
+        $combine = rtrim($combine, ',');
+
+        $this->orderBy = $combine;
+
+        return $this;
+    }
+    
+    /**
+     * Method limit
+     *
+     * @param Integer $limit the max of records to show
+     * @return object
+     */
+    public function limit($limit = null): object
     {
         $this->limit = $limit;
+
         return $this;
+    }
+
+    public function distinct()
+    {
+        
     }
 
     public function count()
@@ -181,9 +248,9 @@ class Query extends Database
         return json_decode(json_encode((array) $this->stmt), true);
     }
 
-    public function execute()
+    public function execute(array $values)
     {
-        return $this->stmt->execute();
+        return $this->stmt->execute($values);
     }
     
     public function dropTable($tableName = '')
