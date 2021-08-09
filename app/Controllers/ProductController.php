@@ -13,15 +13,15 @@ class ProductController extends Controller
      */
     public function index(int $id = null): void 
     {
-        $products = new Query;
+        $q = new Query;
         $results = null;
 
        // $id =2;
 
         if ($id) {
-           // $results= $products->db->findOne($id);
+           // $results= 
         } else {
-            $results = $products->select()->from('products')->all();
+            $results = $q->select()->from('products')->orderBy(['name' => 'asc'])->all();
         }
 
         View::render("products", ['products'=>$results]);

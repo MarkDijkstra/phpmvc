@@ -25,4 +25,21 @@
         }
     ?>
     </table>
+
+    <pre>
+$q = new Query;
+
+$q->select('*')->from('products')->orderBy(['name' => 'asc'])->all();</pre> 
+    <!-- <pre>
+        <?php print_r($products)?>
+    </pre>
+    <br/>
+    <br/>
+    <br/>
+    <strong>Examples:</strong>
+    <pre>
+$q = new Query;
+
+$q->select('name, id, price')->from('products')->orderBy(['name' => 'asc'])->limit(2)->all();
+    </pre> -->
 </div>
