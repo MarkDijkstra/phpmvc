@@ -32,7 +32,7 @@ class Query extends Database
 
     private $sql;
     private $db;
-    private $distinct;
+    private $distinct; 
 
     /**
      * The model construct
@@ -51,7 +51,13 @@ class Query extends Database
      */
     private function queryBuilder(): object
     {
-        $this->sql = 'SELECT '.$this->columns.' FROM '.$this->table;
+        if ($this->distinct) {
+            $this->sql .= 'SELECT DISTINCT ';
+        } else {
+            $this->sql .= 'SELECT ';
+        }
+
+        $this->sql .= $this->columns.' FROM '.$this->table;
 
         if ($this->whereKeys && $this->whereValues) {
            $this->sql .= ' WHERE '.$this->whereKeys.'=? ';
@@ -151,31 +157,25 @@ class Query extends Database
         return $this->stmt;
     }
 
-
-
-    
-    public function orderBy(array $orderBy = [])
+    /**
+     * Method orderBy
+     *
+     * @param array $orderBy the orderby statement
+     * @return object
+     */
+    public function orderBy(array $orderBy = []): object
     {
-        $combine = '';
-
-
- 
-           // if (array() === $arr) return false;
-
-
         if (array_keys($orderBy) !== range(0, count($orderBy) - 1)) {
             foreach($orderBy as $key => $value) {
-              $combine .= $key . ' ' . strtoupper($value) . ',';
+                $this->orderBy .= $key . ' ' . strtoupper($value) . ',';
             }
         } else {
             foreach($orderBy as $value) {             
-                $combine .= $value.',';
+                $this->orderBy .= $value.',';
              }
         }
 
-        $combine = rtrim($combine, ',');
-
-        $this->orderBy = $combine;
+        $this->orderBy = rtrim( $this->orderBy, ',');
 
         return $this;
     }
@@ -186,16 +186,23 @@ class Query extends Database
      * @param Integer $limit the max of records to show
      * @return object
      */
-    public function limit($limit = null): object
+    public function limit(int $limit = null): object
     {
         $this->limit = $limit;
 
         return $this;
     }
-
-    public function distinct()
+    
+    /**
+     * Method distinct
+     *
+     * @return object
+     */
+    public function distinct(): object
     {
-        
+        $this->distinct = true;
+
+        return $this;
     }
 
     public function count()
