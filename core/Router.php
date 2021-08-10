@@ -6,7 +6,6 @@ use Core\Request;
 
 class Router 
 {
-
     /**
      * The array of the routes.
      *
@@ -23,8 +22,6 @@ class Router
 
     /**
      * The current route path
-     *
-     * @var object
      */
     private $routePath = null;
 
@@ -64,7 +61,13 @@ class Router
      * @return mixed Route details or false if route is not found
      */
     private function checkRoute(string $url, string $method): iterable 
-    {       
+    {    
+        $url = ltrim($url, '/');
+        $url = explode('/', $url)[1];
+//print_r($url[1]);
+
+      //  print_r($url);
+
         if (array_key_exists($url, $this->routes[$method])) {
             $route = $this->routes[$method][$url];
         } else {
@@ -144,10 +147,12 @@ class Router
      * @return void
      */
     public function dispatch(): void 
-    {
+    { 
         $url = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
-        $url = $this->cleanUrl($url); 
+
+
+       // $url = $this->cleanUrl($url); 
         $this->route = $this->checkRoute($url, $method);
 
         if ($this->route === null) {
@@ -164,14 +169,20 @@ class Router
      * @param string $url The clean url.
      * @return void
      */
-    private function cleanUrl($url): string 
+    private function cleanUrl($url)
     {
-        $url = ltrim($url, '/');
-        $url = substr($url, strpos($url, '/') + 1);
+        // $url = ltrim($url, '/');
+        // $url = substr($url, strpos($url, '/') + 1);
+        // $url = explode('/', $url)[0];
 
-        if ($url === "") {
-            $url = DEFAULT_ROUTE;
-        }
+        // if ($url === "") {
+        //     $url = DEFAULT_ROUTE;
+        // }
+
+        $url = ltrim($url, '/');
+        $url = explode('/', $url);
+
+
 
         return $url;
     }
@@ -189,8 +200,7 @@ class Router
     /**
      * The method for extracting parameters from request.
      * 
-     * @param $url $data A set of data to be added to the database.
-     *
+     * @param $url A set of data to be added to the database.
      * @return void
      */
     public function extractUrlParams(string $url): void 
@@ -201,6 +211,10 @@ class Router
         }
         $params = [];
         $arr = explode("/", $params_string);
+
+
+        
+//print_r( $arr );
 
         for ($index = 0; $index < count($arr); $index++) {
             if (isset($arr[$index + 1])) {
