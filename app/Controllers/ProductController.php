@@ -16,12 +16,11 @@ class ProductController extends Controller
         $q = new Query;
         $results = null;
 
-       // $id =2;
-
         if ($id) {
-           // $results= 
+            // for this example use an associatve array
+            $results[0] = $q->select()->where(['id'=>$id])->from('products')->one();
         } else {
-            $results = $q->select()->from('products')->orderBy(['name' => 'asc'])->all();
+            $results = $q->select()->from('products')->order(['name' => 'asc'])->all();
         }
 
         View::render("products", ['products'=>$results]);

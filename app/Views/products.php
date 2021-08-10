@@ -29,6 +29,6 @@
     <pre>
 $q = new Query;
 
-$q->select('*')->from('products')->orderBy(['name' => 'asc'])->all();</pre> 
+$q->select('*')->from('products')->order(['name' => 'asc'])->all();</pre> 
    
 </div>

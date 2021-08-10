@@ -4,7 +4,7 @@ return [
     "GET" => [
         "/" => "HomeController@index",
         "about" => "AboutController@index",
-        "products" => "ProductController@index",
+        "products/:id" => "ProductController@index",
         "404" => "NotfoundController@index"
     ]
 ];
