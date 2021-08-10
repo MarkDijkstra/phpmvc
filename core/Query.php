@@ -22,13 +22,19 @@ class Query extends Database
     * @var int max results to output.
     */
     private $limit;
-
-
+    /**
+    * @var array order by.
+    */
+    private $order;
+    /**
+    * @var array group by.
+    */
+    private $group;
 
    
     private $whereKeys;
     private $whereValues;
-    private $orderBy;
+   
 
     private $sql;
     private $db;
@@ -63,8 +69,12 @@ class Query extends Database
            $this->sql .= ' WHERE '.$this->whereKeys.'=? ';
         }
 
-        if ($this->orderBy) {
-            $this->sql .= ' ORDER BY '.$this->orderBy;
+        if ($this->group) {
+            $this->sql .= ' GROUP BY '.$this->group;
+        }
+
+        if ($this->order) {
+            $this->sql .= ' ORDER BY '.$this->order;
         }
 
         if ($this->limit) {
@@ -90,19 +100,13 @@ class Query extends Database
      */
     public function select($columns = '*'): object
     {
-        $this->columns = $columns;
-
-        if (is_array($this->columns)) { 
-            $this->columns = implode(',', $this->columns);
-        }
-
-        return $this;
+        return $this->dataToString('columns', $columns);
     }
     
     /**
      * Method from
      *
-     * @param String $table Select the table to retrive the data from
+     * @param String $table select the table to retrive the data from
      * @return object
      */
     public function from(string $table = null): object
@@ -115,7 +119,7 @@ class Query extends Database
     /**
      * Method where
      *
-     * @todo add logic to handle complex statements
+     * @todo add logic to handle complex WHERE statements
      * @param array $where the where statement
      * @return object
      */
@@ -136,7 +140,7 @@ class Query extends Database
      *
      * @return array
      */    
-    public function all() : array
+    public function all(): array
     {
         $this->queryBuilder();
         $this->stmt = $this->stmt->fetchAll();
@@ -149,7 +153,7 @@ class Query extends Database
      *
      * @return array
      */  
-    public function one() : array
+    public function one(): array
     {
         $this->queryBuilder();
         $this->stmt = $this->stmt->fetch();
@@ -158,26 +162,37 @@ class Query extends Database
     }
 
     /**
-     * Method orderBy
+     * Method order
      *
-     * @param array $orderBy the orderby statement
+     * @param array $order the orderby statement
      * @return object
      */
-    public function orderBy(array $orderBy = []): object
+    public function order(array $order = []): object
     {
-        if (array_keys($orderBy) !== range(0, count($orderBy) - 1)) {
-            foreach($orderBy as $key => $value) {
-                $this->orderBy .= $key . ' ' . strtoupper($value) . ',';
+        if (array_keys($order) !== range(0, count($order) - 1)) {
+            foreach($order as $key => $value) {
+                $this->order .= $key . ' ' . strtoupper($value) . ',';
             }
         } else {
-            foreach($orderBy as $value) {             
-                $this->orderBy .= $value.',';
+            foreach($order as $value) {             
+                $this->order .= $value.',';
              }
         }
 
-        $this->orderBy = rtrim( $this->orderBy, ',');
+        $this->order = rtrim($this->order, ',');
 
         return $this;
+    }
+        
+    /**
+     * Method group
+     *
+     * @param mixed $group the columns to group
+     * @return object
+     */
+    public function group($group = null): object
+    {
+        return $this->dataToString('group', $group);
     }
     
     /**
@@ -265,8 +280,29 @@ class Query extends Database
 
     }
 
-    public function sql()
+    public function raw()
     {
         
     }
+
+    /**
+     * Method dataToString
+     * 
+     * As some methods allow using both a String and Array input we make sure that 
+     * arrays are always convert to a string
+     *
+     * @param string $type the property that we are going to set
+     * @param mixed $value the data that when it is an array we convert to a string
+     * @return object
+     */
+    public function dataToString(string $type, $value): object
+    {
+        $this->{$type} = $value;
+
+        if (is_array($type)) { 
+            $type = implode(',', $type);
+        }
+
+        return $this;
+    }    
 }
