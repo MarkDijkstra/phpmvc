@@ -14,16 +14,13 @@
                <a href="/phpmvc/">Home</a>
            </li>
            <li>
-               <a href="about">About</a>
-           </li>
-           <li>
                 <a href="products">Products</a>
            </li>
            <li>
-                <a href="products/a">Cars</a>
+                <a href="products/cars">Cars</a>
            </li>
            <li>
-               <a href="products/b">Bikes</a>
+                <a href="products/1">BMW X5</a>
            </li>
        </ul>
     </nav>
