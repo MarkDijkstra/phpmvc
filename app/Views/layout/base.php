@@ -9,13 +9,13 @@ $url = new Core\Url;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Main page</title>
-    <link rel="stylesheet" href="public/assets/css/core.css">
+    <link rel="stylesheet" href="<?= $url->resource('assets/css/core.css');?>">
 </head>
 <body>
     <nav id="nav">
        <ul>
            <li>
-               <a href="<?= $url->path('/');?>">Home</a>
+               <a href="<?= $url->home();?>">Home</a>
            </li>
            <li>
                 <a href="<?= $url->path('/products');?>">Products</a>
