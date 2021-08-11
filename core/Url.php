@@ -4,18 +4,10 @@ namespace Core;
 
 class Url
 {
-    /**
-     * The base path
-     *
-     * @var string
-     */
-    protected $base;
-
-    public function __construct() 
-    {   
+    private static function basePath(): string 
+    {
         $path = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://". $_SERVER["SERVER_NAME"]. dirname($_SERVER["PHP_SELF"]);
-        $path = str_replace(PUBLIC_DIR, '', $path);
-        $this->base = $path;
+        return str_replace(PUBLIC_DIR, '', $path);
     }
 
     /**
@@ -24,9 +16,9 @@ class Url
      * @param string $path the url to navigate to
      * @return string
      */
-    public function path(string $path): string 
+    public static function path(string $path): string 
     {
-        return $this->base.$path;
+        return self::basePath().$path;
     }
     
     /**
@@ -34,9 +26,9 @@ class Url
      *
      * @return string
      */
-    public function home(): string 
+    public static function home(): string 
     {
-        return $this->base.'/';
+        return self::basePath().DEFAULT_ROUTE;
     }
     
     /**
@@ -45,7 +37,7 @@ class Url
      * @param string $path the file thats beeing called
      * @return string
      */
-    public function resource(string $path): string 
+    public static function resource(string $path): string 
     {
         return RESOURCES_DIR.'/'.$path;
     }

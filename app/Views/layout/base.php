@@ -1,6 +1,6 @@
 <?php
 
-$url = new Core\Url;
+use Core\Url;
 
 ?>
 <!DOCTYPE html>
@@ -9,22 +9,22 @@ $url = new Core\Url;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Main page</title>
-    <link rel="stylesheet" href="<?= $url->resource('assets/css/core.css');?>">
+    <link rel="stylesheet" href="<?= Url::resource('assets/css/core.css');?>">
 </head>
 <body>
     <nav id="nav">
        <ul>
            <li>
-               <a href="<?= $url->home();?>">Home</a>
+               <a href="<?= Url::home();?>">Home</a>
            </li>
            <li>
-                <a href="<?= $url->path('/products');?>">Products</a>
+                <a href="<?= Url::path('/products');?>">Products</a>
            </li>
            <li>
-                <a href="<?= $url->path('/products/cars');?>">Cars</a>
+                <a href="<?= Url::path('/products/cars');?>">Cars</a>
            </li>
            <li>
-                <a href="<?= $url->path('/products/2');?>">BMW X3</a>
+                <a href="<?= Url::path('/products/2');?>">BMW X3</a>
            </li>
        </ul>
     </nav>
