@@ -1,3 +1,8 @@
+<?php
+
+$url = new Core\Url;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,17 +15,16 @@
     <nav id="nav">
        <ul>
            <li>
-               <!-- TODO -->
-               <a href="/phpmvc/">Home</a>
+               <a href="<?= $url->path('/');?>">Home</a>
            </li>
            <li>
-                <a href="products">Products</a>
+                <a href="<?= $url->path('/products');?>">Products</a>
            </li>
            <li>
-                <a href="products/cars">Cars</a>
+                <a href="<?= $url->path('/products/cars');?>">Cars</a>
            </li>
            <li>
-                <a href="products/1">BMW X5</a>
+                <a href="<?= $url->path('/products/2');?>">BMW X3</a>
            </li>
        </ul>
     </nav>
