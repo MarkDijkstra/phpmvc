@@ -11,12 +11,12 @@ class Url
     }
 
     /**
-     * Path
+     * To method
      *
      * @param string $path the url to navigate to
      * @return string
      */
-    public static function path(string $path): string 
+    public static function to(string $path): string 
     {
         return self::basePath().$path;
     }

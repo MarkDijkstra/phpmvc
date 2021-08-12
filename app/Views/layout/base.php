@@ -18,13 +18,13 @@ use Core\Url;
                <a href="<?= Url::home();?>">Home</a>
            </li>
            <li>
-                <a href="<?= Url::path('/products');?>">Products</a>
+                <a href="<?= Url::to('/products');?>">Products</a>
            </li>
            <li>
-                <a href="<?= Url::path('/products/cars');?>">Cars</a>
+                <a href="<?= Url::to('/products/cars');?>">Cars</a>
            </li>
            <li>
-                <a href="<?= Url::path('/products/2');?>">BMW X3</a>
+                <a href="<?= Url::to('/products/2');?>">BMW X3</a>
            </li>
        </ul>
     </nav>
