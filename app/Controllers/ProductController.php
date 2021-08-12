@@ -13,6 +13,8 @@ class ProductController extends Controller
      */
     public function index(int $id = null): void 
     {
+
+       // print_r($_GET);
         $q = new Query;
         $results = null;
 

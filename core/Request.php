@@ -12,12 +12,9 @@ class Request
     static $params = [];
 
     /**
-     * The static method for getting certain parameter.
+     * The static method for getting certain parameter
      *
-     *
-     * @return mixed  It will return null if the parameter is not sent.
-     * @access  public
-     * @since   Method available since Release 1.0.0
+     * @return mixed It will return null if the parameter is not sent
      */
     public static function getParam(string $name, string $default = null): ?string 
     {

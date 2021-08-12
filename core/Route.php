@@ -1,41 +1,71 @@
 <?php
-
 namespace Core;
+
+use Core\Request;
 
 class Route 
 {
 
 
-
+public $ddd;
     public static function get(string $route, array $controllerAction = [])
     {
+
+        //self::$ddd;
         $url = $_SERVER['REQUEST_URI'];
-        $direction = self::dissectUrl($route, $url);
+    
 
-        if($direction['path'] == $direction['route']){
+        if (self::match($route, $url)) {
            
-           
-            print_r($direction['params']);
-
+            $params = self::urlToParams($route, $url);
             $controller['controller'] = $controllerAction[0];
             $controller['action'] = $controllerAction[1];
             $namespace = 'App\Controllers\\';
             $controller['controller'] = $namespace . $controller['controller'];
+
+            Request::setParams($params);
 
             self::run($controller);
         }
     }
 
     /**
-     * Dissect the url, remove the first part and seperate params from the url.
+     * Method match
+     *
+     * @param string $route the route that we are going to
+     * @param string $url the url
+     *
+     * @return bool
+     */
+    private static function match(string $route, string $url): bool
+    {
+        $url = str_replace(BASE_DIR, "", $url);
+
+        if ($url !== "/") {
+            $url = ltrim($url, '/');
+        }
+
+        $slicedUrl = explode('/', $url);
+        $slicedRoute = explode('/', $route);
+
+        if ($slicedUrl[0] == $slicedRoute[0]) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Url to params, we remove the first part and seperate params from the url
      *
      * @param string $route the route that we are going to use
      * @param string $url the url
      * @return array
      */
-    private static function dissectUrl(string $route, string $url): array
+    private static function urlToParams(string $route, string $url): array
     {
-        $dissected = [];
+      
         $params = [];
 
         $url = str_replace(BASE_DIR, "", $url);
@@ -48,19 +78,26 @@ class Route
         $slicedRoute = explode('/', $route);
         $routeToParams = explode('{', $route);
 
+           
+
          if ($routeToParams[0]) {
+           // print_r($slicedUrl);
             unset($routeToParams[0]);        
-            foreach($routeToParams as $param){
-                $param = str_replace(['}/','}'],'',$param);
-                $params[] .= $param;
-            }
+            // foreach($routeToParams as $param){
+            //     $param = str_replace(['}/','}'],'',$param);
+            //     $params[] .= $param;
+            // }
+            // $keys= str_replace(['}/','}'],'',$routeToParams);
+
+            // $params = array_combine($keys, $values);
+
         }
 
-        $dissected['path'] = $slicedUrl[0];
-        $dissected['route'] = $slicedRoute[0];
-        $dissected['params'] = $params;
+        // $dissected['path'] = $slicedUrl[0];
+        // $dissected['route'] = $slicedRoute[0];
+        //$dissected['params'] = $params;
 
-        return $dissected;
+        return $params;
     }
 
     /**
