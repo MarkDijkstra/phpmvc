@@ -16,6 +16,7 @@ define('DB_CHAR', 'utf8mb4');
 define('SHOW_ERRORS', true);
 define('DEFAULT_ROUTE', '/');
 define('APPLICATION_PATH', substr(realpath(dirname(__FILE__)), 0, -6));
+define('BASE_DIR', '/phpmvc');
 define('PUBLIC_DIR', '/public');
 define('RESOURCES_DIR', '/phpmvc/public');
 

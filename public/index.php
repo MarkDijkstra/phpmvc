@@ -16,7 +16,8 @@ if (ENV && ENV == 'dev') {
 // we will skip this use a 404 container for this instead
 //set_error_handler('Core\Error::errorHandler');
 //set_exception_handler('Core\Error::exceptionHandler');
-
+require_once('../routes/web.php');
 // Route dispatch
-$router = new Core\Router();
-$router->dispatch();
+// $router = new Core\Router();
+// $router->dispatch();
+
