@@ -5,7 +5,7 @@ namespace Core;
 class Request 
 {
     /**
-     * The array of request parameters.
+     * The array of request parameters
      *
      * @var object
      */

@@ -4,20 +4,20 @@ namespace Core;
 use Core\Request;
 
 class Route 
-{
-
-
-public $ddd;
-    public static function get(string $route, array $controllerAction = [])
+{ 
+    /**
+     * Get the routes
+     *
+     * @param string $route the route to match
+     * @param array $controllerAction controller and action
+     * @return void
+     */
+    public static function get(string $route, array $controllerAction = []): void
     {
-
-        //self::$ddd;
         $url = $_SERVER['REQUEST_URI'];
-    
 
-        if (self::match($route, $url)) {
-           
-            $params = self::urlToParams($route, $url);
+        if (self::match($route, $url)) {           
+            $params = self::urlToParams($route, $url);            
             $controller['controller'] = $controllerAction[0];
             $controller['action'] = $controllerAction[1];
             $namespace = 'App\Controllers\\';
@@ -26,15 +26,16 @@ public $ddd;
             Request::setParams($params);
 
             self::run($controller);
+        } else {
+            // include NOTFOUND view
         }
     }
 
     /**
-     * Method match
+     * This will check if the route matches to the current URL 
      *
      * @param string $route the route that we are going to
-     * @param string $url the url
-     *
+     * @param string $url the set url
      * @return bool
      */
     private static function match(string $route, string $url): bool
@@ -55,9 +56,9 @@ public $ddd;
         return false;
     }
 
-
     /**
-     * Url to params, we remove the first part and seperate params from the url
+     * Output the params as an associative array
+     * At this moment this will only support /post/{id} where there's just 1 parameter present
      *
      * @param string $route the route that we are going to use
      * @param string $url the url
@@ -65,37 +66,27 @@ public $ddd;
      */
     private static function urlToParams(string $route, string $url): array
     {
-      
         $params = [];
 
         $url = str_replace(BASE_DIR, "", $url);
+        $slicedUrl = [];
 
         if ($url !== "/") {
             $url = ltrim($url, '/');
+            $slicedUrl = explode('/', $url);
         }
-
-        $slicedUrl = explode('/', $url);
-        $slicedRoute = explode('/', $route);
+        
         $routeToParams = explode('{', $route);
 
-           
-
-         if ($routeToParams[0]) {
-           // print_r($slicedUrl);
-            unset($routeToParams[0]);        
-            // foreach($routeToParams as $param){
-            //     $param = str_replace(['}/','}'],'',$param);
-            //     $params[] .= $param;
-            // }
-            // $keys= str_replace(['}/','}'],'',$routeToParams);
-
-            // $params = array_combine($keys, $values);
-
+        if ($routeToParams[0]) {
+            unset($routeToParams[0]); 
+            unset($slicedUrl[0]);
+            $i = 1;
+            foreach($routeToParams as $key){
+                $key = str_replace(['}/', '}'], '', $key);
+                $params[$key] = $slicedUrl[$i++] ?? '';
+            }
         }
-
-        // $dissected['path'] = $slicedUrl[0];
-        // $dissected['route'] = $slicedRoute[0];
-        //$dissected['params'] = $params;
 
         return $params;
     }
