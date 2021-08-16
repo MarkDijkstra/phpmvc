@@ -2,18 +2,18 @@
 
 namespace App\Controllers;
 
-use Core\{Controller, View, Query};
+use Core\{Controller, View, Query, Request};
 
 class ProductController extends Controller 
 {
     /**
      * The index controller action
      * 
-     * @param int $id the id of the product(s)
      * @return void
      */
-    public function index(int $id = null): void 
+    public function index(): void 
     {
+        $id = Request::getParam('id');
         $q = new Query;
         $results = null;
 
