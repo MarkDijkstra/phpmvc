@@ -26,6 +26,20 @@ class Request
     }
 
     /**
+     * The static method for getting all set parameter
+     *
+     * @return array It will return an empty array if the parameter is not sent
+     */
+    public static function getParams(): array
+    {
+        if (isset(self::$params)) {
+            return self::$params;
+        } else {
+            return [];
+        }
+    }
+
+    /**
      * The method for setting request parameters
      *
      * @return void
