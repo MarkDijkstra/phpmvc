@@ -22,7 +22,7 @@ class Route
             $controller['action'] = $controllerAction[1];
             $namespace = 'App\Controllers\\';
             $controller['controller'] = $namespace . $controller['controller'];
-
+            
             Request::setParams($params);
 
             self::run($controller);
