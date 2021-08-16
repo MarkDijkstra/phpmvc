@@ -29,6 +29,9 @@
     <pre>
 $q = new Query;
 
-$q->select('*')->from('products')->order(['name' => 'asc'])->all();</pre> 
+$q->select('*')->from('products')->order(['name' => 'asc'])->all();
    
-</div>
+// or
+
+$q->select()->where(['id'=>$id])->from('products')->one();</pre> 
+    </div>
