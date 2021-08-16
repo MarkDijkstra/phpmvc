@@ -21,7 +21,7 @@ use Core\Url;
                 <a href="<?= Url::to('/products');?>">Products</a>
            </li>
            <li>
-                <a href="<?= Url::to('/products/cars');?>">Cars</a>
+                <a href="<?= Url::to('/products/4');?>">Mercedes-Benz GLB</a>
            </li>
            <li>
                 <a href="<?= Url::to('/products/2');?>">BMW X3</a>
