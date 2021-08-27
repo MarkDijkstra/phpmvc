@@ -12,8 +12,8 @@ class Products extends Model
      * The model construct
      *
      */
-    public function __construct() {
-
+    public function __construct()
+    {
         /**
          * The database table name.
          */
@@ -36,8 +36,8 @@ class Products extends Model
      *
      * @return array
      */
-    public function getLastTen(): iterable {
-
+    public function getLastTen(): iterable 
+    {
         return $this->db->query('SELECT o.*, c.first_name, c.last_name, '
                                 . 'cn.name as country_name, d.name as device_name '
                                 . 'FROM orders as o '

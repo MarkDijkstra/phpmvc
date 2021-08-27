@@ -16,6 +16,8 @@
             "Core\\": "core/"  
         }
     },
-    "require": {},
-    "scripts":{}
+    "scripts":{},
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    }
 }
